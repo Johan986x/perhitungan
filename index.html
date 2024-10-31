@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kalkulator by.hasan</title>
+    <style>
+        /* Styling Umum */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .calculator {
+            width: 300px;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .display {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            background-color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: right;
+        }
+
+        .row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            flex: 1;
+            height: 60px;
+            font-size: 24px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        /* Warna Tombol */
+        .button.operator {
+            background-color: #f39c12;
+        }
+
+        .button.operator:hover {
+            background-color: #e67e22;
+        }
+
+        .button.number {
+            background-color: #555;
+        }
+
+        .button.number:hover {
+            background-color: #666;
+        }
+
+        .button.clear {
+            background-color: #e74c3c;
+        }
+
+        .button.clear:hover {
+            background-color: #c0392b;
+        }
+
+        .button.equal {
+            background-color: #27ae60;
+            flex: 2;
+        }
+
+        .button.equal:hover {
+            background-color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <input type="text" id="display" class="display" readonly>
+        <div class="row">
+            <button class="button clear" onclick="clearDisplay()">C</button>
+            <button class="button operator" onclick="deleteLast()">DEL</button>
+            <button class="button operator" onclick="appendOperator('/')">/</button>
+            <button class="button operator" onclick="appendOperator('*')">×</button>
+        </div>
+        <div class="row">
+            <button class="button number" onclick="appendNumber(7)">7</button>
+            <button class="button number" onclick="appendNumber(8)">8</button>
+            <button class="button number" onclick="appendNumber(9)">9</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+        </div>
+        <div class="row">
+            <button class="button number" onclick="appendNumber(4)">4</button>
+            <button class="button number" onclick="appendNumber(5)">5</button>
+            <button class="button number" onclick="appendNumber(6)">6</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+        </div>
+        <div class="row">
+            <button class="button number" onclick="appendNumber(1)">1</button>
+            <button class="button number" onclick="appendNumber(2)">2</button>
+            <button class="button number" onclick="appendNumber(3)">3</button>
+            <button class="button equal" onclick="calculateResult()">=</button>
+        </div>
+        <div class="row">
+            <button class="button number" onclick="appendNumber(0)" style="flex: 2;">0</button>
+            <button class="button operator" onclick="appendOperator('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        function appendNumber(number) {
+            document.getElementById("display").value += number;
+        }
+
+        function appendOperator(operator) {
+            const display = document.getElementById("display");
+            const lastChar = display.value.slice(-1);
+            if (lastChar === "+" || lastChar === "-" || lastChar === "*" || lastChar === "/") {
+                display.value = display.value.slice(0, -1) + operator;
+            } else {
+                display.value += operator;
+            }
+        }
+
+        function clearDisplay() {
+            document.getElementById("display").value = "";
+        }
+
+        function deleteLast() {
+            const display = document.getElementById("display");
+            display.value = display.value.slice(0, -1);
+        }
+
+        function calculateResult() {
+            const display = document.getElementById("display");
+            if (display.value === "1+1") {
+                display.value = "I love you";
+            } else {
+                try {
+                    display.value = eval(display.value);
+                } catch (error) {
+                    display.value = "Error";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
